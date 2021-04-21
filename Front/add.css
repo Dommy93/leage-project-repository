@@ -1,0 +1,32 @@
+.newarticle {
+    text-align: left;
+
+}
+p {
+    padding: .9em 0;
+}
+input {
+    width: 750px;
+    border: 2.5px solid rgb(122, 122, 128);
+    border-radius: 5px;
+    padding: 10px;
+    background: #313131;
+    display : block;
+    margin-right: 600px;
+}
+textarea {
+    width: 750px;
+    border: 2.5px solid rgb(122, 122, 128);
+    border-radius: 5px;
+    padding: 10px;
+    background: #313131;
+    display : block;
+}
+
+input, select, textarea {
+    max-width: 1000px;
+}
+
+body {
+    color: #9d9d9d;
+}

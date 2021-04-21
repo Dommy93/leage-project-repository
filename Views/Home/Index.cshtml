@@ -1,0 +1,159 @@
+﻿@model WillThisWork.Models.HateLikeModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+<article>
+    <img class="displayed" src="~/Images/logo2.png" alt="logo League Haters">
+
+    @foreach (var hate in Model.Hates)
+    {
+
+        <div class="article-main">
+
+
+            <div class=" article-describe">
+
+                @if (hate.UserId != null)
+                {
+                    <p>Hate użytkownika : @hate.User.UserName</p>
+                }
+                <h1>@hate.Title </h1>
+
+                <p>@hate.Description</p>
+            </div>
+
+            @if (hate.fileExtension == ".mp4" || hate.fileExtension == ".MP4")
+            {
+                <video width="650" height="450" controls>
+                    <source src="@Url.Content(hate.ImagePath == null ? "~/Images/LeagueHate.png" : hate.ImagePath)" type="video/mp4">
+                    <source src="movie.ogg" type="video/ogg">
+                    Your browser does not support the video tag.
+                </video>
+
+            }
+            else
+            {
+                <div class="article-img">
+                    <img src="@Url.Content(hate.ImagePath == null ? "~/Images/LeagueHate.png" : hate.ImagePath)" alt="photo or gif with hate" class="hate-img">
+
+                </div>
+            }
+            <div class="article-controls">
+
+
+                @if (Model.UserLikes.
+                       Where(a => a.UserName == User.Identity.Name).
+                       Where(a => a.HateId == hate.Id).ToList().Count == 0)
+                {
+                    <ul>
+
+
+                        <li><button class="btn btn-like" id=@hate.Id type="button" name="btnLike">Like</button></li> Likes: @hate.Likes
+                        <li><button class="btn btn-unlike" id=@hate.Id type="button" name="btnDislike">Unlike</button></li> Dislikes : @hate.Dislikes
+                        <li><input type="button" value="Więcej" class="btn btn-more" onclick="@("window.location.href='" + @Url.Action("Detail", "Home", new { id = hate.Id }) + "'");" /></li>
+
+
+
+                    </ul>
+                }
+                else
+                {
+                    <ul>
+
+                        <li><button class="btn btn-liked" id=@hate.Id type="button" name="btnLike">Liked :)</button></li> Likes: @hate.Likes
+                        <li><button class="btn btn-unliked" id=@hate.Id type="button" name="btnDislike">Unliked :(</button></li> Dislikes: @hate.Dislikes
+                        <li><input type="button" value="Więcej" class="btn btn-more" onclick="@("window.location.href='" + @Url.Action("Detail", "Home", new { id = hate.Id }) + "'");" /></li>
+                    </ul>
+
+                }
+
+            </div>
+
+        </div>
+
+
+
+    }
+
+</article>
+
+
+<script>
+    $("[name='btnLike']").click(function () {
+
+        var idk = $(this).attr("id");
+
+        $.ajax({
+            url: "@Url.Action("AddLike", "Home")" + "/" + idk,
+            type: "post",
+        }).done(function (response) {
+
+            if (response.Success) {
+                window.location.reload();
+            }
+            else {
+
+            }
+        }).fail(function(){
+
+        });
+    });
+
+
+</script>
+
+
+
+<script>
+    $("[name='btnDislike']").click(function () {
+
+        var idk = $(this).attr("id");
+
+        $.ajax({
+            url: "@Url.Action("AddDislike", "Home")" + "/" + idk,
+            type: "post",
+        }).done(function (response) {
+
+            if (response.Success) {
+                window.location.reload();
+            }
+            else {
+
+            }
+        }).fail(function(){
+
+        });
+    });
+
+
+</script>
+
+<style>
+    /* Tooltip container */
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+    }
+
+        /* Tooltip text */
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+            border-radius: 6px;
+            /* Position the tooltip text - see examples below! */
+            position: absolute;
+            z-index: 1;
+        }
+
+        /* Show the tooltip text when you mouse over the tooltip container */
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+        }
+</style>
+

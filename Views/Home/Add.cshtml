@@ -1,0 +1,40 @@
+﻿@model WillThisWork.Models.Hate
+
+@using (Html.BeginForm("Add", "Home", FormMethod.Post, new
+{ enctype = "multipart/form-data" }))
+{
+<div class="newarticle">
+    <h1>Dodaj nowy post</h1>
+
+    <p>
+        @Html.LabelFor(m => m.Title, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.Title)
+    
+    </p>
+
+    <p>
+        @Html.LabelFor(m => m.Description, new { @class = "control-label", @cols = 30, @rows = 10 })
+        @Html.TextBoxFor(m => m.Description)
+       
+    </p>
+
+    <p>
+        @Html.LabelFor(m => m.Image, new { @class = "control-label" })
+        <div class="col-md-10">
+            <input type="file" name="Image" required>
+        </div>
+    </p>
+ 
+    <p>
+        @Html.LabelFor(m => m.HatedSummoner, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.HatedSummoner)
+       
+    </p>
+
+
+
+    <p>
+        <button type="submit">Dodaj</button>
+        <button type="reset">Wyczyść</button>
+    </p>
+</div>}

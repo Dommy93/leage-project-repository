@@ -1,0 +1,38 @@
+﻿@model List<WillThisWork.Models.Hate>
+
+@{
+    Layout = "_CabinePartial.cshtml";
+}
+
+
+
+
+
+
+
+@if (Model != null)
+{
+<div class="container">
+    <h6 class="text-muted">Description List</h6>
+    @foreach (var hate in Model)
+    {
+
+
+
+        <dl class="row">
+            <dt class="col-sm-3">#@hate.Id  @hate.Title</dt>
+            <dd class="col-sm-9">@hate.Description</dd>
+            <dd class="col-sm-12">@Html.ActionLink("Pokaż to", "Detail", "Home", new { id = hate.Id }, null)</dd>
+        </dl>
+
+
+
+
+    }
+</div>
+}
+
+
+
+
+
