@@ -19,7 +19,8 @@ namespace WillThisWork.Data
         {
             HateLikeModel model = new HateLikeModel();
             model.Hates = _context.Hates.ToList();
-            model.UserLikes = _context.UserLikes.ToList();
+            model.Likes = _context.Likes.ToList();
+            model.Dislikes = _context.Dislikes.ToList();
 
             return model;
         }
@@ -41,9 +42,9 @@ namespace WillThisWork.Data
         }
         public bool LeaveComment(Comment comment)
         {
-          
+
             _context.Comments.Add(comment);
-            
+
             return _context.SaveChanges() > 0;
         }
         public List<Comment> GetComments(int entityId, int hateId)
@@ -61,16 +62,16 @@ namespace WillThisWork.Data
 
 
             var hate = _context.Hates.Where(a => a.Id == id).SingleOrDefault();
-            UserLike userLike = new UserLike { HateId = id, UserName = System.Web.HttpContext.Current.User.Identity.Name };
-            var userLikesOfHate = _context.UserLikes.
+            Likes likes = new Likes { HateId = id, UserName = System.Web.HttpContext.Current.User.Identity.Name };
+            var userLikesOfHate = _context.Likes.
                 Where(u => u.HateId == id).
-                Where(a => a.UserName == userLike.UserName).ToList();
-            
-            
-            if(userLikesOfHate.Count == 0 )
+                Where(a => a.UserName == likes.UserName).ToList();
+
+
+            if (userLikesOfHate.Count == 0)
             {
                 hate.Likes++;
-                hate.UserLikes.Add(userLike);
+                hate.LikeList.Add(likes);
                 _context.SaveChanges();
 
             }
@@ -80,21 +81,17 @@ namespace WillThisWork.Data
         public void Dislike(int id)
         {
             var hate = _context.Hates.Where(a => a.Id == id).SingleOrDefault();
-            UserLike userLike = new UserLike { HateId = id, UserName = System.Web.HttpContext.Current.User.Identity.Name };
-            var userLikesOfHate = _context.UserLikes.Where(u => u.HateId == id).ToList();
+            Dislikes dislikes = new Dislikes { HateId = id, UserName = System.Web.HttpContext.Current.User.Identity.Name };
+            var userLikesOfHate = _context.Dislikes.
+                 Where(u => u.HateId == id).
+                 Where(a => a.UserName == dislikes.UserName).ToList();
 
-            if (userLikesOfHate == null)
+            if (userLikesOfHate.Count == 0)
             {
                 hate.Dislikes++;
-                userLikesOfHate.Add(userLike);
+                hate.DislikeList.Add(dislikes);
                 _context.SaveChanges();
 
-            }
-            else if (!userLikesOfHate.Contains(userLike))
-            {
-                hate.Dislikes++;
-                userLikesOfHate.Add(userLike);
-                _context.SaveChanges();
             }
         }
 

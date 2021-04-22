@@ -42,30 +42,45 @@
             <div class="article-controls">
 
 
-                @if (Model.UserLikes.
+                @if (Model.Likes.
                        Where(a => a.UserName == User.Identity.Name).
                        Where(a => a.HateId == hate.Id).ToList().Count == 0)
                 {
+
                     <ul>
-
-
                         <li><button class="btn btn-like" id=@hate.Id type="button" name="btnLike">Like</button></li> Likes: @hate.Likes
-                        <li><button class="btn btn-unlike" id=@hate.Id type="button" name="btnDislike">Unlike</button></li> Dislikes : @hate.Dislikes
                         <li><input type="button" value="Więcej" class="btn btn-more" onclick="@("window.location.href='" + @Url.Action("Detail", "Home", new { id = hate.Id }) + "'");" /></li>
-
-
-
                     </ul>
+
+
                 }
                 else
                 {
                     <ul>
-
-                        <li><button class="btn btn-liked" id=@hate.Id type="button" name="btnLike">Liked :)</button></li> Likes: @hate.Likes
-                        <li><button class="btn btn-unliked" id=@hate.Id type="button" name="btnDislike">Unliked :(</button></li> Dislikes: @hate.Dislikes
+                        <li><button class="btn btn-liked" id=@hate.Id type="button" name="btnLike">Liked :)</button></li>
+                        Likes: @hate.Likes
                         <li><input type="button" value="Więcej" class="btn btn-more" onclick="@("window.location.href='" + @Url.Action("Detail", "Home", new { id = hate.Id }) + "'");" /></li>
                     </ul>
+                }
 
+                @if (Model.Dislikes.
+                                   Where(a => a.UserName == User.Identity.Name).
+                                   Where(a => a.HateId == hate.Id).ToList().Count == 0)
+                {
+                    <ul>
+                        <li><button class="btn btn-unlike" id=@hate.Id type="button" name="btnDislike">Unlike</button></li>
+                        Dislikes: @hate.Dislikes
+                        <li><input type="button" value="Więcej" class="btn btn-more" onclick="@("window.location.href='" + @Url.Action("Detail", "Home", new { id = hate.Id }) + "'");" /></li>
+                    </ul>
+                }
+                else
+                {
+
+                    <ul>
+                        <li><button class="btn btn-unliked" id=@hate.Id type="button" name="btnDislike">Unliked :(</button></li>
+                        Dislikes: @hate.Dislikes
+                        <li><input type="button" value="Więcej" class="btn btn-more" onclick="@("window.location.href='" + @Url.Action("Detail", "Home", new { id = hate.Id }) + "'");" /></li>
+                    </ul>
                 }
 
             </div>

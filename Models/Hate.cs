@@ -23,7 +23,9 @@ namespace WillThisWork.Models
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
-        public List<UserLike> UserLikes { get; set; } = new List<UserLike>(); 
+        public List<Likes> LikeList { get; set; } = new List<Likes>();
+        public List<Dislikes> DislikeList { get; set; } = new List<Dislikes>();
+
         public List<Comment> Comments { get; set; }
         public Hate()
         {

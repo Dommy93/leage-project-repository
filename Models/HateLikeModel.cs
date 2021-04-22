@@ -8,6 +8,7 @@ namespace WillThisWork.Models
     public class HateLikeModel
     {
         public List<Hate> Hates { get; set; }
-        public List<UserLike> UserLikes { get; set; }
+        public List<Likes> Likes { get; set; }
+        public List<Dislikes> Dislikes { get; set; }
     }
 }
