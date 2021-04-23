@@ -75,6 +75,12 @@ namespace WillThisWork.Data
                 _context.SaveChanges();
 
             }
+            else
+            {
+                hate.Likes--;
+                _context.Likes.Remove(userLikesOfHate.SingleOrDefault());
+                _context.SaveChanges();
+            }
 
         }
 
@@ -92,6 +98,12 @@ namespace WillThisWork.Data
                 hate.DislikeList.Add(dislikes);
                 _context.SaveChanges();
 
+            }
+            else
+            {
+                hate.Dislikes--;
+                _context.Dislikes.Remove(userLikesOfHate.SingleOrDefault());
+                _context.SaveChanges();
             }
         }
 

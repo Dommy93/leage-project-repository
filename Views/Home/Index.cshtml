@@ -3,11 +3,20 @@
 @{
     ViewBag.Title = "Home Page";
 }
+
 <article>
     <img class="displayed" src="~/Images/logo2.png" alt="logo League Haters">
 
     @foreach (var hate in Model.Hates)
     {
+
+        bool didLike = Model.Likes.
+                       Where(a => a.UserName == User.Identity.Name).
+                       Where(a => a.HateId == hate.Id).ToList().Count == 0;
+        
+        bool didDislike = Model.Dislikes.
+                       Where(a => a.UserName == User.Identity.Name).
+                       Where(a => a.HateId == hate.Id).ToList().Count == 0;
 
         <div class="article-main">
 
@@ -39,33 +48,38 @@
 
                 </div>
             }
-            <div class="article-controls">
+        <div class="article-controls">
 
 
-                @if (Model.Likes.
-                       Where(a => a.UserName == User.Identity.Name).
-                       Where(a => a.HateId == hate.Id).ToList().Count == 0)
+            @if (didLike)
+            {
+                if (didDislike == true)
                 {
 
                     <ul>
                         <li><button class="btn btn-like" id=@hate.Id type="button" name="btnLike">Like</button></li> Likes: @hate.Likes
-                        <li><input type="button" value="Więcej" class="btn btn-more" onclick="@("window.location.href='" + @Url.Action("Detail", "Home", new { id = hate.Id }) + "'");" /></li>
                     </ul>
-
-
                 }
                 else
                 {
-                    <ul>
-                        <li><button class="btn btn-liked" id=@hate.Id type="button" name="btnLike">Liked :)</button></li>
-                        Likes: @hate.Likes
-                        <li><input type="button" value="Więcej" class="btn btn-more" onclick="@("window.location.href='" + @Url.Action("Detail", "Home", new { id = hate.Id }) + "'");" /></li>
-                    </ul>
-                }
 
-                @if (Model.Dislikes.
-                                   Where(a => a.UserName == User.Identity.Name).
-                                   Where(a => a.HateId == hate.Id).ToList().Count == 0)
+                <ul>
+                    <li><button class="btn btn-like" id=@hate.Id type="button" name="btnLike" disabled>Like</button></li> Likes: @hate.Likes
+                </ul>
+                        }
+
+                    }
+                    else
+                    {
+                <ul>
+                    <li><button class="btn btn-liked" id=@hate.Id type="button" name="btnLike">Liked :)</button></li>
+                    Likes: @hate.Likes
+                </ul>
+            }
+
+            @if (didDislike)
+            {
+                if (didLike == true)
                 {
                     <ul>
                         <li><button class="btn btn-unlike" id=@hate.Id type="button" name="btnDislike">Unlike</button></li>
@@ -77,13 +91,24 @@
                 {
 
                     <ul>
-                        <li><button class="btn btn-unliked" id=@hate.Id type="button" name="btnDislike">Unliked :(</button></li>
+                        <li><button class="btn btn-unlike" id=@hate.Id type="button" name="btnDislike" disabled>Unlike</button></li>
                         Dislikes: @hate.Dislikes
                         <li><input type="button" value="Więcej" class="btn btn-more" onclick="@("window.location.href='" + @Url.Action("Detail", "Home", new { id = hate.Id }) + "'");" /></li>
                     </ul>
-                }
 
-            </div>
+                }
+            }
+            else
+            {
+
+                <ul>
+                    <li><button class="btn btn-unliked" id=@hate.Id type="button" name="btnDislike">Unliked :(</button></li>
+                    Dislikes: @hate.Dislikes
+                    <li><input type="button" value="Więcej" class="btn btn-more" onclick="@("window.location.href='" + @Url.Action("Detail", "Home", new { id = hate.Id }) + "'");" /></li>
+                </ul>
+            }
+
+        </div>
 
         </div>
 
@@ -94,10 +119,15 @@
 </article>
 
 
-<script>
-    $("[name='btnLike']").click(function () {
 
+
+<script>
+
+    $("[name='btnLike']").click(function () {
         var idk = $(this).attr("id");
+        var element = document.querySelector("div[class=\"article - main\"]>div:last-of-type>ul>li:first-of-type>button[id=\"" + idk + "\"]");
+        var element2 = document.querySelector("ul:nth-child(2) > li:nth-child(1) > #\\3" + idk);
+       
 
         $.ajax({
             url: "@Url.Action("AddLike", "Home")" + "/" + idk,
@@ -117,7 +147,6 @@
 
 
 </script>
-
 
 
 <script>
