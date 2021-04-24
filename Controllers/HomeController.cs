@@ -183,7 +183,21 @@ namespace WillThisWork.Controllers
             return result;
 
         }
+        public ActionResult Update(int? id)
+        {
+            Hate hate = _hateRepository.Get(id);
+            return View(hate);
+        }
 
+        [HttpPost]
+        public ActionResult Update(Hate hate)
+        {
+
+            _hateRepository.Update(hate);
+
+            return RedirectToAction("Detail", new { id = hate.Id });
+
+        }
 
     }
 }

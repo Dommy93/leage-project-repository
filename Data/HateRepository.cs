@@ -107,6 +107,11 @@ namespace WillThisWork.Data
             }
         }
 
+        public void Update(Hate hate)
+        {
 
+            _context.Entry(hate).State = System.Data.Entity.EntityState.Modified;
+            _context.SaveChanges();
+        }
     }
 }

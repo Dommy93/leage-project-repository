@@ -2,8 +2,8 @@
 
 .card {
     border: none;
-    box-shadow: 5px 6px 6px 2px #e9ecef;
-    border-radius: 4px
+    box-shadow: 1px 2px 6px 1px #004c98;
+    border-radius: 2px
 }
 
 .dots {
@@ -75,3 +75,5 @@ body {
     margin-left: 255px;
     margin-bottom: 20px;
 }
+
+

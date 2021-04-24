@@ -284,6 +284,7 @@
     <Content Include="Views\Cabine\MyCabine.cshtml" />
     <Content Include="Views\Cabine\_CabinePartial.cshtml" />
     <Content Include="Views\Cabine\MyHates.cshtml" />
+    <Content Include="Views\Home\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

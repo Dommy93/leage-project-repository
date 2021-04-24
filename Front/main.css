@@ -148,6 +148,10 @@ article {
     background: #636363;
     border: 2px solid rgb(0, 0, 0);
 }
+.btn.btn-comment {
+    background-color: #004c98;
+    width: 130px;
+}
 .article-describe > p {
     text-align: justify;
     padding-right: 1em;
