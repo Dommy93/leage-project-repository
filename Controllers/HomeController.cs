@@ -186,11 +186,16 @@ namespace WillThisWork.Controllers
         public ActionResult Update(int? id)
         {
             Hate hate = _hateRepository.Get(id);
-            return View(hate);
+            UpdateHateViewModel model = 
+                new UpdateHateViewModel() { Id = hate.Id,
+                    Description = hate.Description,
+                    HatedSummoner = hate.HatedSummoner,
+                    Title = hate.Title };
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult Update(Hate hate)
+        public ActionResult Update(UpdateHateViewModel hate)
         {
 
             _hateRepository.Update(hate);

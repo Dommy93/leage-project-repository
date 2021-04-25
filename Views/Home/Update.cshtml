@@ -1,4 +1,4 @@
-﻿@model WillThisWork.Models.Hate
+﻿@model WillThisWork.Models.UpdateHateViewModel
 
 @using (Html.BeginForm("Update", "Home", FormMethod.Post, new
 { enctype = "multipart/form-data" }))
@@ -19,13 +19,13 @@
         @Html.TextBoxFor(m => m.Description)
 
     </p>
-
+@*
     <p>
         @Html.LabelFor(m => m.Image, new { @class = "control-label" })
         <div class="col-md-10">
             <input type="file" name="Image" required>
         </div>
-    </p>
+    </p>*@
 
     <p>
         @Html.LabelFor(m => m.HatedSummoner, new { @class = "control-label" })

@@ -36,10 +36,7 @@ namespace WillThisWork.Data
             _context.Hates.Add(hate);
             _context.SaveChanges();
         }
-        public void Update(Hate hate, int id)
-        {
-            //TO DO Update
-        }
+      
         public bool LeaveComment(Comment comment)
         {
 
@@ -107,10 +104,10 @@ namespace WillThisWork.Data
             }
         }
 
-        public void Update(Hate hate)
+        public void Update(UpdateHateViewModel hate)
         {
-
-            _context.Entry(hate).State = System.Data.Entity.EntityState.Modified;
+            Hate hate2 = _context.Hates.Find(hate.Id);
+            _context.Entry(hate2).CurrentValues.SetValues(hate);
             _context.SaveChanges();
         }
     }
