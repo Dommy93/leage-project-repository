@@ -110,5 +110,7 @@ namespace WillThisWork.Data
             _context.Entry(hate2).CurrentValues.SetValues(hate);
             _context.SaveChanges();
         }
+
+  
     }
 }

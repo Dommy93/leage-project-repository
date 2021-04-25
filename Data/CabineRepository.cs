@@ -25,7 +25,13 @@ namespace WillThisWork.Data
             return hates;
         }
 
+        public void Delete(int? id)
+        {
+            Hate hate = _context.Hates.Where(h => h.Id == id).SingleOrDefault();
 
+            _context.Hates.Remove(hate);
+            _context.SaveChanges();
+        }
 
     }
 }

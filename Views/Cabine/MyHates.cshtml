@@ -23,6 +23,8 @@
             <dt class="col-sm-3">#@hate.Id  @hate.Title</dt>
             <dd class="col-sm-9">@hate.Description</dd>
             <dd class="col-sm-12">@Html.ActionLink("Pokaż to", "Detail", "Home", new { id = hate.Id }, null)</dd>
+            <dd class="col-sm-12">@Html.ActionLink("Edytuj", "Update", "Home", new { id = hate.Id }, null)</dd>
+            <dd class="col-sm-12" id="delete">@Html.ActionLink("Usuń", "Delete", "Cabine", new {id = hate.Id}, null)</dd>
         </dl>
 
 
@@ -36,3 +38,12 @@
 
 
 
+<script>
+    $("#delete").click(function () {
+
+        if (!confirm("Are you sure you want to delete?")) {
+            return false;
+        }
+    });
+
+</script>

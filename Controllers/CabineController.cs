@@ -25,15 +25,40 @@ namespace WillThisWork.Controllers
         {
 
             return View();
-        
+
         }
 
         public ActionResult MyHates()
         {
+            try
+            {
+                if (User.Identity.IsAuthenticated == true)
+                {
+                    string userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+                    var hates = _cabineRepository.GetHates(userId);
 
-            string userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            var hates = _cabineRepository.GetHates(userId);
-            return View(hates);
+                    return View(hates);
+
+                }
+                else
+                {
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+            }
+            return new HttpStatusCodeResult(403);
+        }
+
+        public ActionResult Delete(int id)
+        {
+
+            _cabineRepository.Delete(id);
+
+            return RedirectToAction("MyHates", "Cabine");
+
         }
     }
 }
