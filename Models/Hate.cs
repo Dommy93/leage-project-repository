@@ -26,6 +26,8 @@ namespace WillThisWork.Models
         public List<Likes> LikeList { get; set; } = new List<Likes>();
         public List<Dislikes> DislikeList { get; set; } = new List<Dislikes>();
 
+        public bool isWaitingRoom { get; set; } = true;
+
         public List<Comment> Comments { get; set; }
         public Hate()
         {

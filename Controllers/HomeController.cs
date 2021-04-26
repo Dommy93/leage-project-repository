@@ -204,7 +204,24 @@ namespace WillThisWork.Controllers
 
         }
 
+        public ActionResult WaitingRoom()
+        {
+            List<ApplicationUser> users = context.Users.ToList();
 
+            ViewBag.data = users;
+
+            return View(_hateRepository.GetListWR());
+        }
+
+        [HttpPost]
+        public ActionResult AddToMainPage(int? id)
+        {
+
+            _hateRepository.AddToMain(id);
+
+            return RedirectToAction("Index", "Home");
+
+        }
 
     }
 }

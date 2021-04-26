@@ -286,6 +286,7 @@
     <Content Include="Views\Cabine\_CabinePartial.cshtml" />
     <Content Include="Views\Cabine\MyHates.cshtml" />
     <Content Include="Views\Home\Update.cshtml" />
+    <Content Include="Views\Home\WaitingRoom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

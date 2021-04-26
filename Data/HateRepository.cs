@@ -18,7 +18,16 @@ namespace WillThisWork.Data
         public HateLikeModel GetList()
         {
             HateLikeModel model = new HateLikeModel();
-            model.Hates = _context.Hates.ToList();
+            model.Hates = _context.Hates.Where(h => h.isWaitingRoom == false).ToList();
+            model.Likes = _context.Likes.ToList();
+            model.Dislikes = _context.Dislikes.ToList();
+
+            return model;
+        }
+        public HateLikeModel GetListWR()
+        {
+            HateLikeModel model = new HateLikeModel();
+            model.Hates = _context.Hates.Where(h => h.isWaitingRoom == true).ToList();
             model.Likes = _context.Likes.ToList();
             model.Dislikes = _context.Dislikes.ToList();
 
@@ -111,6 +120,12 @@ namespace WillThisWork.Data
             _context.SaveChanges();
         }
 
-  
+         public void AddToMain(int? id)
+        {
+
+            _context.Hates.Where(h => h.Id == id).SingleOrDefault().isWaitingRoom = false;
+            _context.SaveChanges();
+
+        }
     }
 }
