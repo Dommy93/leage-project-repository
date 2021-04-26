@@ -95,7 +95,11 @@ namespace WillThisWork
             : base(userManager, authenticationManager)
         {
         }
-
+        public async Task<SignInStatus> PasswordEmailSignInAsync(string email, string password, bool isPersistent, bool shouldLockout)
+        {
+            var user = UserManager.FindByEmail(email);
+            return await PasswordSignInAsync(user.UserName, password, isPersistent, shouldLockout);
+        }
         public override Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser user)
         {
             return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);

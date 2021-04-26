@@ -135,14 +135,8 @@
         $.ajax({
             url: "@Url.Action("AddToMainPage", "Home")" + "/" + idk,
             type: "post",
-        }).done(function (response) {
-
-            if (response.Success) {
+        }).done(function () {
                 window.location.reload();
-            }
-            else {
-
-            }
         }).fail(function(){
 
         });
