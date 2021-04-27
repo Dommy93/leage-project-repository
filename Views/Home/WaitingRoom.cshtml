@@ -30,8 +30,9 @@
                 <h1>@hate.Title </h1>
 
                 <p>@hate.Description</p>
-
-                <button class="btn btn-liked" id=@hate.Id type="button" name="btnMove">Liked :)</button>
+                @if (User.IsInRole("Administrator")) {
+                <button class="btn btn-liked" id=@hate.Id type="button" name="btnMove">Na główną</button>
+                 }
             </div>
 
             @if (hate.fileExtension == ".mp4" || hate.fileExtension == ".MP4")

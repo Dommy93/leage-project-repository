@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 using WillThisWork.Models;
 
 namespace WillThisWork.Data
@@ -19,6 +20,15 @@ namespace WillThisWork.Data
 
 
             */
+            IdentityRole admin = new IdentityRole() { Name = "Administrator" };
+            IdentityRole moderator = new IdentityRole() { Name = "Moderator" };
+            IdentityRole user = new IdentityRole() { Name = "User" };
+
+            context.Roles.Add(admin);
+            context.Roles.Add(moderator);
+            context.Roles.Add(user);
+
+
 
             Hate hate = new Hate() { Number = 22, ImagePath = "~/Images/test1.gif", Title = "How to penta with Yasuo", Description = "Easy peasy OTP Yasuo! :D", HatedSummoner = "Hated Summoners", Dislikes = 100, Likes = 2000 };
            // context.WaitingRoom.Add(hate);

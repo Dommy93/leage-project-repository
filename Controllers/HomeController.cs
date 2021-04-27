@@ -217,6 +217,7 @@ namespace WillThisWork.Controllers
         public ActionResult AddToMainPage(int? id)
         {
 
+
             _hateRepository.AddToMain(id);
 
             return RedirectToAction("Index", "Home");
