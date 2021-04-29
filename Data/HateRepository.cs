@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using WillThisWork.Models;
+using System.Data.Entity;
 
 namespace WillThisWork.Data
 {
@@ -18,7 +19,7 @@ namespace WillThisWork.Data
         public HateLikeModel GetList()
         {
             HateLikeModel model = new HateLikeModel();
-            model.Hates = _context.Hates.Where(h => h.isWaitingRoom == false).ToList();
+            model.Hates = _context.Hates.Include(a => a.Champion).Where(h => h.isWaitingRoom == false).ToList();
             model.Likes = _context.Likes.ToList();
             model.Dislikes = _context.Dislikes.ToList();
 
@@ -27,7 +28,7 @@ namespace WillThisWork.Data
         public HateLikeModel GetListWR()
         {
             HateLikeModel model = new HateLikeModel();
-            model.Hates = _context.Hates.Where(h => h.isWaitingRoom == true).ToList();
+            model.Hates = _context.Hates.Include(a => a.Champion).Where(h => h.isWaitingRoom == true).ToList();
             model.Likes = _context.Likes.ToList();
             model.Dislikes = _context.Dislikes.ToList();
 
@@ -36,7 +37,8 @@ namespace WillThisWork.Data
 
         public Hate Get(int? id)
         {
-            var hates = _context.Hates.AsQueryable();
+            var hates = _context.Hates.Include(a => a.Champion).AsQueryable();
+           
             return hates.Where(h => h.Id == id).SingleOrDefault();
         }
 
