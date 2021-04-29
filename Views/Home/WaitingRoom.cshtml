@@ -28,11 +28,12 @@
                     <p>Hate użytkownika : @hate.User.UserName</p>
                 }
                 <h1>@hate.Title </h1>
-
+                <h3>@hate.Champion.Name</h3>
                 <p>@hate.Description</p>
-                @if (User.IsInRole("Administrator")) {
-                <button class="btn btn-liked" id=@hate.Id type="button" name="btnMove">Na główną</button>
-                 }
+                @if (User.IsInRole("Administrator"))
+                {
+                    <button class="btn btn-liked" id=@hate.Id type="button" name="btnMove">Na główną</button>
+                }
             </div>
 
             @if (hate.fileExtension == ".mp4" || hate.fileExtension == ".MP4")

@@ -1,4 +1,4 @@
-﻿@model WillThisWork.Models.Hate
+﻿@model WillThisWork.Models.HateAddModel
 
 @using (Html.BeginForm("Add", "Home", FormMethod.Post, new
 { enctype = "multipart/form-data" }))
@@ -7,28 +7,35 @@
     <h1>Dodaj nowy post</h1>
 
     <p>
-        @Html.LabelFor(m => m.Title, new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.Title)
+        @Html.LabelFor(m => m.Hate.Title, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.Hate.Title)
     
     </p>
 
     <p>
-        @Html.LabelFor(m => m.Description, new { @class = "control-label", @cols = 30, @rows = 10 })
-        @Html.TextBoxFor(m => m.Description)
+        @Html.LabelFor(m => m.Hate.Description, new { @class = "control-label", @cols = 30, @rows = 10 })
+        @Html.TextBoxFor(m => m.Hate.Description)
        
     </p>
 
     <p>
-        @Html.LabelFor(m => m.Image, new { @class = "control-label" })
+        @Html.LabelFor(m => m.Hate.Image, new { @class = "control-label" })
         <div class="col-md-10">
             <input type="file" name="Image" required>
         </div>
     </p>
  
     <p>
-        @Html.LabelFor(m => m.HatedSummoner, new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.HatedSummoner)
+        @Html.LabelFor(m => m.Hate.HatedSummoner, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.Hate.HatedSummoner)
        
+    </p>
+
+    <p>
+        @Html.LabelFor(m => m.Hate.ChampionId, new { @class = "control-label"})
+        @Html.DropDownListFor(m => m.Hate.ChampionId, @Model.ChampionSelectListItems,"", new { @class = "form-control"})
+
+
     </p>
 
 

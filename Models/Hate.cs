@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace WillThisWork.Models
 {
@@ -29,10 +30,18 @@ namespace WillThisWork.Models
         public bool isWaitingRoom { get; set; } = true;
 
         public List<Comment> Comments { get; set; }
+
+        public int ChampionId { get; set; }
+        public Champion Champion { get; set; }
+
+
+
+
         public Hate()
         {
             
         }
+
      
 
     }

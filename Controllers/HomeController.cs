@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -63,26 +64,32 @@ namespace WillThisWork.Controllers
                 return RedirectToAction("Index");
             }
 
-            Hate hate = new Hate();
-           
+            HateAddModel model = new HateAddModel();
+            model.Init(repository);
 
-            return View(hate);
+            return View(model);
         }
 
 
         [HttpPost]
-        public ActionResult Add(Hate hate)
+        public ActionResult Add(HateAddModel model)
         {
+
+
+
             if (ModelState.IsValid)
             {
 
-                string fileName = Path.GetFileNameWithoutExtension(hate.Image.FileName);
-                string extension = Path.GetExtension(hate.Image.FileName);
-                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+
+                var hate = model.Hate;
+
+                string fileName = Path.GetFileNameWithoutExtension(model.Image.FileName);
+                string extension = Path.GetExtension(model.Image.FileName);
+                fileName = fileName + Guid.NewGuid() + extension;
                 hate.ImagePath = "~/Images/" + fileName;
 
                 fileName = Path.Combine(Server.MapPath("~/Images/"), fileName);
-                hate.Image.SaveAs(fileName);
+                model.Image.SaveAs(fileName);
                 hate.fileExtension = extension;
                 hate.Likes = 0;
                 hate.Dislikes = 0;
@@ -96,9 +103,11 @@ namespace WillThisWork.Controllers
                
                 _hateRepository.Add(hate);
 
+                model.Init(repository);
+
                 return RedirectToAction("Detail", new { id = hate.Id });
             }
-            return View(hate);
+            return View(model);
         }
    
 
@@ -222,6 +231,12 @@ namespace WillThisWork.Controllers
 
             return RedirectToAction("Index", "Home");
 
+        }
+
+
+        public ActionResult Champions()
+        {
+            return View(context.Champions.ToList());
         }
 
     }

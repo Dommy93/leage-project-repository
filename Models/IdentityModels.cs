@@ -26,7 +26,8 @@ namespace WillThisWork.Models
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Likes> Likes { get; set; }
         public DbSet<Dislikes> Dislikes { get; set; }
-        //public DbSet<Hate> WaitingRoom { get; set; }
+        public DbSet<Champion> Champions { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

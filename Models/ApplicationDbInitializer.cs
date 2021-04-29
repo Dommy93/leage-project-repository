@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using Newtonsoft.Json;
 using System;
 using System.Data.Entity;
+using System.IO;
 
 namespace WillThisWork.Models
 {
@@ -24,6 +26,28 @@ namespace WillThisWork.Models
               context.SaveChanges();
 
   */
+
+           // DirectoryInfo directory = new DirectoryInfo(@"C:\Users\Dominator\source\repos\WillThisWork\WillThisWork\Images\champion.json");
+
+            var fileName = @"C:\Users\Dominator\source\repos\WillThisWork\WillThisWork\Images\champion.json";
+            var chamion = new Champ();
+            var serializer = new JsonSerializer();
+            using (var reader = new StreamReader(fileName))
+            using (var jsonReader = new JsonTextReader(reader))
+            {
+                chamion = serializer.Deserialize<Champ>(jsonReader);
+            }
+
+            var champToFillList = chamion.ChampsDictionary;
+
+
+            foreach (var champ in champToFillList)
+            {
+                Champion champion = new Champion();
+                champion.Name = champ.Value.name;
+                context.Champions.Add(champion);
+            }
+
             IdentityRole admin = new IdentityRole() { Name = "Administrator" };
             IdentityRole moderator = new IdentityRole() { Name = "Moderator" };
             IdentityRole user = new IdentityRole() { Name = "User" };

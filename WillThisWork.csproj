@@ -184,9 +184,12 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbInitializer.cs" />
     <Compile Include="Models\Cabine.cs" />
+    <Compile Include="Models\Champ.cs" />
+    <Compile Include="Models\Champion.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Dislikes.cs" />
     <Compile Include="Models\Hate.cs" />
+    <Compile Include="Models\HateAddModel.cs" />
     <Compile Include="Models\HateLikeModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Likes.cs" />
@@ -287,6 +290,7 @@
     <Content Include="Views\Cabine\MyHates.cshtml" />
     <Content Include="Views\Home\Update.cshtml" />
     <Content Include="Views\Home\WaitingRoom.cshtml" />
+    <Content Include="Views\Home\Champions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
