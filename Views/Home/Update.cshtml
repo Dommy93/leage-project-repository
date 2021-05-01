@@ -19,17 +19,25 @@
         @Html.TextBoxFor(m => m.Description)
 
     </p>
-@*
-    <p>
-        @Html.LabelFor(m => m.Image, new { @class = "control-label" })
-        <div class="col-md-10">
-            <input type="file" name="Image" required>
-        </div>
-    </p>*@
+    @*
+        <p>
+            @Html.LabelFor(m => m.Image, new { @class = "control-label" })
+            <div class="col-md-10">
+                <input type="file" name="Image" required>
+            </div>
+        </p>*@
 
     <p>
         @Html.LabelFor(m => m.HatedSummoner, new { @class = "control-label" })
         @Html.TextBoxFor(m => m.HatedSummoner)
+
+    </p>
+
+
+    <p>
+        @Html.LabelFor(m => m.ChampionId, new { @class = "control-label" })
+        @Html.DropDownListFor(m => m.ChampionId, @Model.ChampionSelectListItems, "", new { @class = "form-control" })
+
 
     </p>
 

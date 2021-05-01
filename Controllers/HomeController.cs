@@ -200,6 +200,7 @@ namespace WillThisWork.Controllers
                     Description = hate.Description,
                     HatedSummoner = hate.HatedSummoner,
                     Title = hate.Title };
+            model.Init(repository);
             return View(model);
         }
 
