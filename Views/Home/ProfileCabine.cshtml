@@ -1,0 +1,47 @@
+﻿@model WillThisWork.ViewModels.ProfileModel
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+@foreach (var hate in Model.ChampHateDict)
+{
+
+    <h2>@hate.Key.Name</h2>
+    <hr />
+    foreach (var hates in hate.Value)
+    {
+        var imgPath = hates.ImagePath + "#t=0.1";
+
+        <video padding="5px" height="150" preload="metadata">
+            <source src="@Url.Content(hates.ImagePath == null ? "~/Images/LeagueHate.png" : imgPath)">
+            <source src="movie.ogg" type="video/ogg">
+            Your browser does not support the video tag.
+        </video>
+    }
+
+
+}
+
+
+
+
+
+
+<style>
+    img {
+        border: 1px solid #ddd; /* Gray border */
+        border-radius: 4px; /* Rounded border */
+        padding: 5px; /* Some padding */
+        width: 150px; /* Set a small width */
+    }
+
+        /* Add a hover effect (blue shadow) */
+        img:hover {
+            box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+        }
+</style>

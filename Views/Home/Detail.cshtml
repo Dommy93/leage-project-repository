@@ -7,6 +7,10 @@
     <div class="article-main">
 
         <div class=" article-describe">
+            @if (Model.UserId != null)
+            {
+                <p>Hate użytkownika :@Html.ActionLink(Model.User.UserName, "ProfileCabine", "Home", new { id = Model.UserId }, null)</p>
+            }
             <h1>@Model.Title </h1>
             <h3>@Model.Champion.Name</h3>
             <p>@Model.Description</p>

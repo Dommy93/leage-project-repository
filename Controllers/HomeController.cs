@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using WillThisWork.Data;
 using WillThisWork.Models;
+using WillThisWork.ViewModels;
 
 namespace WillThisWork.Controllers
 {
@@ -238,6 +239,22 @@ namespace WillThisWork.Controllers
         public ActionResult Champions()
         {
             return View(context.Champions.ToList());
+        }
+
+        public ActionResult ProfileCabine(string id)
+        {
+            var model = new ProfileModel();
+
+
+            model.ChampHateDict = _hateRepository.getChampHates(id);
+
+            var hates = _hateRepository.GetListWR().Hates.Where(h => h.UserId == id).ToList();
+            model.Hates = hates;
+            model.Champions = context.Champions.ToList();
+            
+
+            return View(model);
+
         }
 
     }

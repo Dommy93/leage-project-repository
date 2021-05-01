@@ -37,7 +37,7 @@ namespace WillThisWork.Data
 
         public Hate Get(int? id)
         {
-            var hates = _context.Hates.Include(a => a.Champion).AsQueryable();
+            var hates = _context.Hates.Include(a => a.Champion).Include(u => u.User).AsQueryable();
            
             return hates.Where(h => h.Id == id).SingleOrDefault();
         }
@@ -129,5 +129,35 @@ namespace WillThisWork.Data
             _context.SaveChanges();
 
         }
+
+
+        public Dictionary<Champion, List<Hate>> getChampHates(string userId)
+        {
+            Dictionary<Champion, List<Hate>> dict = new Dictionary<Champion, List<Hate>>();
+
+            List<Champion> champs = _context.Hates.Where(h => h.UserId == userId).Select(s => s.Champion).Distinct().ToList();
+
+            var hates = _context.Hates.Where(h => h.UserId == userId).ToList();
+
+
+            
+
+            foreach (var champ in champs) {
+                var list = new List<Hate>();    
+                foreach (var hate in hates)
+                {
+                    if(champ.Name == hate.Champion.Name)
+                    {
+                        list.Add(hate);
+                    }
+
+
+                }
+                dict.Add(champ, list);
+            }
+
+            return dict;
+        }
+
     }
 }

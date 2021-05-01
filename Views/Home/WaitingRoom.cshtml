@@ -25,7 +25,7 @@
 
                 @if (hate.UserId != null)
                 {
-                    <p>Hate użytkownika : @hate.User.UserName</p>
+                <p>Hate użytkownika : @Html.ActionLink(hate.User.UserName, "ProfileCabine", "Home", new { id = hate.UserId }, null)</p>
                 }
                 <h1>@hate.Title </h1>
                 <h3>@hate.Champion.Name</h3>
