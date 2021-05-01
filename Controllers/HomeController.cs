@@ -41,8 +41,12 @@ namespace WillThisWork.Controllers
                 return HttpNotFound();
             }
 
+
+          
+
+
             Hate hate = _hateRepository.Get(id);
-            
+      
 
             hate.Comments = _hateRepository.GetComments(23, hate.Id);
 

@@ -1,12 +1,25 @@
 ﻿@model WillThisWork.Models.Hate
 
 
+@{
+
+
+    bool didLike = Model.LikeList.
+          Where(a => a.UserName == User.Identity.Name).
+          Where(a => a.HateId == Model.Id).ToList().Count == 0;
+
+    bool didDislike = Model.DislikeList.
+    Where(a => a.UserName == User.Identity.Name).
+    Where(a => a.HateId == Model.Id).ToList().Count == 0;
+}
 
 <article>
 
     <div class="article-main">
 
+
         <div class=" article-describe">
+
             @if (Model.UserId != null)
             {
                 <p>Hate użytkownika :@Html.ActionLink(Model.User.UserName, "ProfileCabine", "Home", new { id = Model.UserId }, null)</p>
@@ -22,7 +35,6 @@
                 <source src="@Url.Content(Model.ImagePath == null ? "~/Images/LeagueHate.png" : Model.ImagePath)" type="video/mp4">
                 <source src="movie.ogg" type="video/ogg">
                 Your browser does not support the video tag.
-
             </video>
 
         }
@@ -32,20 +44,74 @@
                 <img src="@Url.Content(Model.ImagePath == null ? "~/Images/LeagueHate.png" : Model.ImagePath)" alt="photo or gif with hate" class="hate-img">
 
             </div>
-
         }
-
-
         <div class="article-controls">
-            <ul>
-                <li><button class="btn btn-like" id="btnLike" type="button">Like</button></li> Likes : @Model.Likes
-                <li><button class="btn btn-unlike"id="btnDislike" type="button">Unlike</button></li> Dislikes : @Model.Dislikes
-            </ul>
+
+
+            @if (didLike)
+            {
+                if (didDislike == true)
+                {
+
+                    <ul>
+                        <li><button class="btn btn-like" id=@Model.Id type="button" name="btnLike">Like</button></li> Likes: @Model.Likes
+                    </ul>
+                }
+                else
+                {
+
+                    <ul>
+                        <li><button class="btn btn-like" id=@Model.Id type="button" name="btnLike" disabled>Like</button></li> Likes: @Model.Likes
+                    </ul>
+                }
+
+            }
+            else
+            {
+                <ul>
+                    <li><button class="btn btn-liked" id=@Model.Id type="button" name="btnLike">Liked :)</button></li>
+                    Likes: @Model.Likes
+                </ul>
+            }
+
+            @if (didDislike)
+            {
+                if (didLike == true)
+                {
+                    <ul>
+                        <li><button class="btn btn-unlike" id=@Model.Id type="button" name="btnDislike">Unlike</button></li>
+                        Dislikes: @Model.Dislikes
+                        <li><input type="button" value="Więcej" class="btn btn-more" onclick="@("window.location.href='" + @Url.Action("Detail", "Home", new { id = Model.Id }) + "'");" /></li>
+                    </ul>
+                }
+                else
+                {
+
+                    <ul>
+                        <li><button class="btn btn-unlike" id=@Model.Id type="button" name="btnDislike" disabled>Unlike</button></li>
+                        Dislikes: @Model.Dislikes
+                        <li><input type="button" value="Więcej" class="btn btn-more" onclick="@("window.location.href='" + @Url.Action("Detail", "Home", new { id = Model.Id }) + "'");" /></li>
+                    </ul>
+
+                }
+            }
+            else
+            {
+
+                <ul>
+                    <li><button class="btn btn-unliked" id=@Model.Id type="button" name="btnDislike">Unliked :(</button></li>
+                    Dislikes: @Model.Dislikes
+                    <li><input type="button" value="Więcej" class="btn btn-more" onclick="@("window.location.href='" + @Url.Action("Detail", "Home", new { id = Model.Id }) + "'");" /></li>
+                </ul>
+            }
 
         </div>
 
-
     </div>
+
+
+
+
     <div>
         <div>
             Comments
@@ -55,32 +121,34 @@
         {
             foreach (var comment in Model.Comments)
             {
-        <div class="container mt-5">
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-8">
-                    
-                   
-                    <div class="card p-3 mt-2">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="user d-flex flex-row align-items-center"> <img src="~/Images/test.jpg" width="30" class="user-img rounded-circle mr-2"> <span>
-                                <small class="font-weight-bold text-primary">@comment.UserName</small>
-                                <small class=class="font-weight-bold">@comment.Text</small>
-                                    </span> </div> <small>@comment.TimeStamp</small>
-                        </div>
-                        <div class="action d-flex justify-content-between mt-2 align-items-center">
-                            @if (User.Identity.IsAuthenticated == true)
-                            {
-                            <div class="reply px-4"> <small>Remove</small> <span class="dots"></span>  </div>
-                            }
-                            <div class="icons align-items-center"> <i class="fa fa-check-circle-o check-icon text-primary"></i> </div>
+                <div class="container mt-5">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-8">
+
+
+                            <div class="card p-3 mt-2">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="user d-flex flex-row align-items-center">
+                                        <img src="~/Images/test.jpg" width="30" class="user-img rounded-circle mr-2"> <span>
+                                            <small class="font-weight-bold text-primary">@comment.UserName</small>
+                                            <small class= class="font-weight-bold">@comment.Text</small>
+                                        </span>
+                                    </div> <small>@comment.TimeStamp</small>
+                                </div>
+                                <div class="action d-flex justify-content-between mt-2 align-items-center">
+                                    @if (User.Identity.IsAuthenticated == true)
+                                    {
+                                        <div class="reply px-4"> <small>Remove</small> <span class="dots"></span>  </div>
+                                    }
+                                    <div class="icons align-items-center"> <i class="fa fa-check-circle-o check-icon text-primary"></i> </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
             }
         }
-      
+
         <article>
 
 
@@ -103,9 +171,9 @@
                 <p>Please log in to comment</p>
             }
         </article>
-
-</article>
     </div>
+</article>
+
 
 <script>
     $("#btnComment").click(function () {
@@ -115,27 +183,6 @@
             data: $("#commentForm").serialize()
 
         }).done(function (response) {
-            
-            if (response.Success) {
-                window.location.reload();
-            }
-            else {
-                
-            }
-        }).fail(function(){
-            
-        });
-    });
-
-</script>
-
-<script>
-    $("#btnLike").click(function () {
-        $.ajax({
-            url: "@Url.Action("AddLike", "Home", new { id = Model.Id })",
-            type: "post"
-
-        }).done(function (response) {
 
             if (response.Success) {
                 window.location.reload();
@@ -149,13 +196,60 @@
     });
 
 </script>
+@*
+    <script>
+        $("#btnLike").click(function () {
+            $.ajax({
+                url: "@Url.Action("AddLike", "Home", new { id = Model.Id })",
+                type: "post"
+
+            }).done(function (response) {
+
+                if (response.Success) {
+                    window.location.reload();
+                }
+                else {
+
+                }
+            }).fail(function(){
+
+            });
+        });
+
+    </script>
+
+    <script>
+        $("#btnDislike").click(function () {
+            $.ajax({
+                url: "@Url.Action("AddDislike", "Home", new { id = Model.Id })",
+                type: "post"
+
+            }).done(function (response) {
+
+                if (response.Success) {
+                    window.location.reload();
+                }
+                else {
+
+                }
+            }).fail(function(){
+
+            });
+        });
+
+    </script>*@
 
 <script>
-    $("#btnDislike").click(function () {
-        $.ajax({
-            url: "@Url.Action("AddDislike", "Home", new { id = Model.Id })",
-            type: "post"
 
+    $("[name='btnLike']").click(function () {
+        var idk = $(this).attr("id");
+        var element = document.querySelector("div[class=\"article - main\"]>div:last-of-type>ul>li:first-of-type>button[id=\"" + idk + "\"]");
+        var element2 = document.querySelector("ul:nth-child(2) > li:nth-child(1) > #\\3" + idk);
+
+
+        $.ajax({
+            url: "@Url.Action("AddLike", "Home")" + "/" + idk,
+            type: "post",
         }).done(function (response) {
 
             if (response.Success) {
@@ -168,5 +262,31 @@
 
         });
     });
+
+
+</script>
+
+
+<script>
+    $("[name='btnDislike']").click(function () {
+
+        var idk = $(this).attr("id");
+
+        $.ajax({
+            url: "@Url.Action("AddDislike", "Home")" + "/" + idk,
+            type: "post",
+        }).done(function (response) {
+
+            if (response.Success) {
+                window.location.reload();
+            }
+            else {
+
+            }
+        }).fail(function(){
+
+        });
+    });
+
 
 </script>

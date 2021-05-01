@@ -28,7 +28,10 @@ namespace WillThisWork.Data
         public HateLikeModel GetListWR()
         {
             HateLikeModel model = new HateLikeModel();
-            model.Hates = _context.Hates.Include(a => a.Champion).Where(h => h.isWaitingRoom == true).ToList();
+            model.Hates = _context.Hates.
+                Include(c => c.Comments).
+                Include(a => a.Champion).
+                Where(h => h.isWaitingRoom == true).ToList();
             model.Likes = _context.Likes.ToList();
             model.Dislikes = _context.Dislikes.ToList();
 
@@ -37,7 +40,11 @@ namespace WillThisWork.Data
 
         public Hate Get(int? id)
         {
-            var hates = _context.Hates.Include(a => a.Champion).Include(u => u.User).AsQueryable();
+            var hates = _context.Hates.
+                Include(a => a.Champion).
+                Include(u => u.User).
+                Include(l => l.LikeList).
+                Include(d => d.DislikeList).AsQueryable();
            
             return hates.Where(h => h.Id == id).SingleOrDefault();
         }
@@ -137,7 +144,9 @@ namespace WillThisWork.Data
 
             List<Champion> champs = _context.Hates.Where(h => h.UserId == userId).Select(s => s.Champion).Distinct().ToList();
 
-            var hates = _context.Hates.Where(h => h.UserId == userId).ToList();
+            var hates = _context.Hates.
+                Where(h => h.UserId == userId).
+                Include(c => c.Comments).ToList();
 
 
             

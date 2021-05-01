@@ -6,7 +6,7 @@ using System.IO;
 
 namespace WillThisWork.Models
 {
-    internal class ApplicationDbInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
+    internal class ApplicationDbInitializer : CreateDatabaseIfNotExists<ApplicationDbContext>
     {
 
         protected override void Seed(ApplicationDbContext context)
@@ -27,9 +27,10 @@ namespace WillThisWork.Models
 
   */
 
-           // DirectoryInfo directory = new DirectoryInfo(@"C:\Users\Dominator\source\repos\WillThisWork\WillThisWork\Images\champion.json");
+            // DirectoryInfo directory = new DirectoryInfo(@"C:\Users\Dominator\source\repos\WillThisWork\WillThisWork\Images\champion.json");
 
-            var fileName = @"C:\Users\Dominator\source\repos\WillThisWork\WillThisWork\Images\champion.json";
+           /* //var fileName = @"C:\Users\Dominator\source\repos\WillThisWork\WillThisWork\Images\champion.json";
+            var fileName = @"h:\root\home\gillberg-001\www\lh\images\champion.json";
             var chamion = new Champ();
             var serializer = new JsonSerializer();
             using (var reader = new StreamReader(fileName))
@@ -56,7 +57,7 @@ namespace WillThisWork.Models
             context.Roles.Add(moderator);
             context.Roles.Add(user);
 
-            context.SaveChanges();
+            context.SaveChanges();*/
 
         }
 
