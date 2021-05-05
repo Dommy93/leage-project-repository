@@ -293,6 +293,7 @@
     <Content Include="Views\Home\WaitingRoom.cshtml" />
     <Content Include="Views\Home\Champions.cshtml" />
     <Content Include="Views\Home\ProfileCabine.cshtml" />
+    <Content Include="Views\Home\Page.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -27,7 +27,25 @@ namespace WillThisWork.Controllers
         {
 
             //List<Hate> hates = _hateRepository.GetList();
+
             HateLikeModel model = _hateRepository.GetList();
+            List<ApplicationUser> users = context.Users.ToList();
+
+            ViewBag.data = users;
+
+            return View(model);
+        }
+
+        public ActionResult Page(int? id)
+        {
+            
+           /* if (page == null)
+            {
+
+                return HttpNotFound();
+            }*/
+
+            HateLikeModel model = _hateRepository.GetListPage(id);
             List<ApplicationUser> users = context.Users.ToList();
 
             ViewBag.data = users;
@@ -179,8 +197,16 @@ namespace WillThisWork.Controllers
 
             JsonResult result = new JsonResult();
 
-            _hateRepository.Like(id.Value);
-            result.Data = new { Success = true };
+            if (User.Identity.IsAuthenticated == true)
+            {
+                _hateRepository.Like(id.Value);
+                result.Data = new { Success = true };
+            }
+            else
+            {
+                result.Data = new { Success = false };
+                return result;
+            }
 
             return result;
 
@@ -191,9 +217,16 @@ namespace WillThisWork.Controllers
 
             JsonResult result = new JsonResult();
 
-            _hateRepository.Dislike(id.Value);
-            result.Data = new { Success = true };
-
+            if (User.Identity.IsAuthenticated == true)
+            {
+                _hateRepository.Dislike(id.Value);
+                result.Data = new { Success = true };
+            }
+            else
+            {
+                result.Data = new { Success = false };
+                return result;
+            }
             return result;
 
         }

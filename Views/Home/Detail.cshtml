@@ -113,9 +113,9 @@
 
 
     <div>
-        <div>
+        <h4>
             Comments
-        </div>
+        </h4>
 
         @if (Model.Comments != null && Model.Comments.Count > 0)
         {
@@ -131,17 +131,17 @@
                                     <div class="user d-flex flex-row align-items-center">
                                         <img src="~/Images/test.jpg" width="30" class="user-img rounded-circle mr-2"> <span>
                                             <small class="font-weight-bold text-primary">@comment.UserName</small>
-                                            <small class= class="font-weight-bold">@comment.Text</small>
+                                            <small class="font-weight-bold">@comment.Text</small>
                                         </span>
-                                    </div> <small>@comment.TimeStamp</small>
+                                    </div> <small id="small-date">@comment.TimeStamp</small>
                                 </div>
-                                <div class="action d-flex justify-content-between mt-2 align-items-center">
+                                @*<div class="action d-flex justify-content-between mt-2 align-items-center">
                                     @if (User.Identity.IsAuthenticated == true)
                                     {
                                         <div class="reply px-4"> <small>Remove</small> <span class="dots"></span>  </div>
                                     }
                                     <div class="icons align-items-center"> <i class="fa fa-check-circle-o check-icon text-primary"></i> </div>
-                                </div>
+                                </div>*@
                             </div>
                         </div>
                     </div>
@@ -173,6 +173,8 @@
         </article>
     </div>
 </article>
+
+
 
 
 <script>

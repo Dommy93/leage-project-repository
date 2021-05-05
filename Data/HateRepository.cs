@@ -19,7 +19,29 @@ namespace WillThisWork.Data
         public HateLikeModel GetList()
         {
             HateLikeModel model = new HateLikeModel();
-            model.Hates = _context.Hates.Include(a => a.Champion).Where(h => h.isWaitingRoom == false).ToList();
+            model.Hates = _context.Hates.
+                Include(a => a.Champion).
+                Where(h => h.isWaitingRoom == false).
+                OrderByDescending(h => h.Id).ToList();
+
+            model.Likes = _context.Likes.ToList();
+            model.Dislikes = _context.Dislikes.ToList();
+
+            return model;
+        }
+
+        public HateLikeModel GetListPage(int? page)
+        {
+            if(page == null)
+            {
+                page = 0;
+            }
+            HateLikeModel model = new HateLikeModel();
+            model.Hates = _context.Hates.
+                Include(a => a.Champion).
+                Where(h => h.isWaitingRoom == false).
+                OrderByDescending(h => h.Id).Skip(page.Value * 10).Take(10).ToList();
+
             model.Likes = _context.Likes.ToList();
             model.Dislikes = _context.Dislikes.ToList();
 
