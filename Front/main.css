@@ -7,6 +7,7 @@ body {
     font-family: Montserrat, sans-serif;
     background-color: #0a0a0a;
     color: #9d9d9d;
+   /*background-image: url('../Images/661f1812b91fa7b64c56693df7eced5c.jpg');*/
 }
 
 .hide-desktop {
@@ -24,7 +25,24 @@ header {
     padding: 0.6em 0 0 1em;
     width: 150px;
 }
-
+#pagin {
+    color: #286090;
+    background-color: #000;
+    border: 1px solid #286090;
+    margin-left: 6px;
+    padding: 8px 30px;
+}
+    #pagin:hover {
+        box-shadow: 0px 0px 5px 1px #004c98;
+    }
+#pagin-shadow {
+    color: #286090;
+    background-color: #000;
+    border: 1px solid #286090;
+    box-shadow: 0px 0px 5px 1px #c7c7c7;
+    margin-left: 6px;
+    padding: 8px 30px;
+}
 /* Top Navigation */
 
 .top-nav {
@@ -90,7 +108,8 @@ nav ul li a{
     height: 450px;
 }
 article {
-    background-color: rgb(25, 25, 25);
+    /*background-color: rgb(25 25 25 / 40%);*/
+    background-color: rgb(25 25 25);
 }
 
 

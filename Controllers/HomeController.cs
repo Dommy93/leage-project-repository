@@ -45,9 +45,11 @@ namespace WillThisWork.Controllers
                 return HttpNotFound();
             }*/
 
+
+
             HateLikeModel model = _hateRepository.GetListPage(id);
             List<ApplicationUser> users = context.Users.ToList();
-
+            model.Page = _hateRepository.GetList().Hates.Count;
             ViewBag.data = users;
 
             return View(model);

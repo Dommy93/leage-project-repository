@@ -118,6 +118,25 @@
 
 </article>
 
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item"><a class="page-link" id="pagin" href="#">Previous</a></li>
+        @for (int i = 0; i < Model.Page / 10; i++)
+        {
+            if (Int32.Parse(Url.RequestContext.RouteData.Values["id"].ToString()) == i)
+            {
+                <li class="page-item">@Html.ActionLink($"{i}", "Page", new { id = i }, new { id = "pagin-shadow" })</li>
+                continue;
+            }
+
+            <li class="page-item">@Html.ActionLink($"{i}", "Page", new { id = i }, new { id = "pagin" })</li>
+
+
+
+        }
+        <li class="page-item"><a class="page-link" id="pagin" href="#">Next</a></li>
+    </ul>
+</nav>
 
 
 <script>
@@ -198,5 +217,6 @@
         .tooltip:hover .tooltiptext {
             visibility: visible;
         }
+
 </style>
 

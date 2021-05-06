@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WillThisWork.Data;
+using WillThisWork.ViewModels;
 
 namespace WillThisWork.Controllers
 {
@@ -60,5 +61,22 @@ namespace WillThisWork.Controllers
             return RedirectToAction("MyHates", "Cabine");
 
         }
+
+        public ActionResult Users()
+        {
+
+            var model = new UsersViewModel();
+            model.Init(repository);
+            model.rolez = repository.getRolez();
+            if (User.IsInRole("Administrator"))
+            {
+                model.Users = _cabineRepository.GetApplicationUsers();
+                return View(model);
+
+                
+            }
+            return View(model);
+        }
+
     }
 }

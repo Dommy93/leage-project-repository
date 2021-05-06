@@ -11,16 +11,22 @@ namespace WillThisWork.Data
 
         public CabineRepository(ApplicationDbContext context) : base(context)
         {
-
+           
         }
+        
+        public List<ApplicationUser> GetApplicationUsers()
+        {
+            
+            List<ApplicationUser> users = _context.Users.ToList();
 
-
+            return users;
+        }
+        
         public List<Hate> GetHates(string userId)
         {
 
             List<Hate> hates = new List<Hate>();
             hates = _context.Hates.Where(h => h.UserId == userId).ToList();
-
 
             return hates;
         }

@@ -19,7 +19,7 @@ namespace WillThisWork.Models
 
         public virtual void Init(Repository repository)
         {
-            ChampionSelectListItems = new SelectList(repository.getChampList().Items, "ChampionId", "Name","");
+            ChampionSelectListItems = new SelectList(repository.getChampList().Items, "ChampionId", "Name");
         }
 
     }

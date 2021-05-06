@@ -22,6 +22,13 @@ namespace WillThisWork.Data
             
             return new SelectList(_context.Champions.ToList());
         }
-
+        public SelectList getRoles()
+        {
+            return new SelectList(_context.Roles.ToList());
+        }
+        public dynamic getRolez()
+        {
+            return _context.Roles.ToList();
+        }
     }
 }

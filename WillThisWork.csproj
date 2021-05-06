@@ -201,6 +201,7 @@
     <Compile Include="Models\UserLike.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\UsersViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -294,6 +295,7 @@
     <Content Include="Views\Home\Champions.cshtml" />
     <Content Include="Views\Home\ProfileCabine.cshtml" />
     <Content Include="Views\Home\Page.cshtml" />
+    <Content Include="Views\Cabine\Users.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
