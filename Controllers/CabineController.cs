@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WillThisWork.Data;
+using WillThisWork.Models;
 using WillThisWork.ViewModels;
 
 namespace WillThisWork.Controllers
@@ -68,14 +69,27 @@ namespace WillThisWork.Controllers
             var model = new UsersViewModel();
             model.Init(repository);
             model.rolez = repository.getRolez();
-            if (User.IsInRole("Administrator"))
+            if (!User.IsInRole("User"))
             {
                 model.Users = _cabineRepository.GetApplicationUsers();
                 return View(model);
-
+                
                 
             }
             return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult updateRole(UpdateUserRoleViewModel model)
+        {
+            JsonResult result = new JsonResult();
+
+
+            _cabineRepository.Update(model);
+            result.Data = new { success = true };
+
+
+            return result;
         }
 
     }

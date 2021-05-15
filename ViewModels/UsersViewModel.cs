@@ -26,5 +26,7 @@ namespace WillThisWork.ViewModels
             rolesSelectListItems = new SelectList(repository.getRoles().Items, "Id", "Name");
         }
 
+        UpdateUserRoleViewModel Model { get; set; }
+
     }
 }

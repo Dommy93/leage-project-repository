@@ -20,7 +20,9 @@ namespace WillThisWork.Data
 
 
             */
-            IdentityRole admin = new IdentityRole() { Name = "Administrator" };
+
+            
+            IdentityRole admin = new IdentityRole() { Name = "Administrator", Id = "69fb1bea-7d57-436f-8e87-b3c3dc6f7449" };
             IdentityRole moderator = new IdentityRole() { Name = "Moderator" };
             IdentityRole user = new IdentityRole() { Name = "User" };
 

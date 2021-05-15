@@ -23,33 +23,31 @@
             foreach (var user in Model.Users)
             {
                 iterator++;
-                <tbody>
-                    <tr id="coolTable">
-                        <th scope="row">@iterator</th>
-                        <td>@user.UserName</td>
-                        <td>@user.Email</td>
-                        <td>
-                            @Html.DropDownListFor(m => user.Roles, Model.GetSelectListItemsWithSelectedValue(user.Roles.FirstOrDefault().RoleId), new { @class = "form-control" })
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
-                            <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                            <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                        </td>
-                    </tr>
+        <tbody>
+            <tr id="coolTable">
+                <th scope="row">@iterator</th>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>
+                    @Html.DropDownListFor(m => user.Roles, Model.GetSelectListItemsWithSelectedValue(user.Roles.FirstOrDefault().RoleId), new { @class = "form-control" })
+                </td>
+                <td>
+                    @* @Html.ActionLink("Save", "updateRole", "Cabine", new { id = user.Id }, new { @class = "btn btn-outline-primary" })*@
+                    <button id="@user.Id" type="button" name="btnSubmit" class="btn btn-outline-primary">test</button>
 
-                </tbody>
+                </td>
+            </tr>
 
+        </tbody>
             }
 
         }
     </table>
-    </div>
+</div>
 
 <style>
 
-    .btn-primary{
-
+    .btn-primary {
     }
 
     h4 {
@@ -62,6 +60,91 @@
     {
         vertical-align: middle;
     }
-
     }
 </style>
+
+@*<script>
+
+
+    $('#user_Roles').click(function () {
+
+
+        var selectedValue = $('#user_Roles').selectedValue;
+
+        var model = {
+            roleId: selectedValue,
+
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("uptadeRole", "Cabine", new { id = Guid.Empty })",
+            data : model
+        });
+
+    });
+</script>*@
+
+
+
+<script>
+
+    $("[name='btnSubmit']").click(function () {
+
+        var idk = $(this).attr("id");
+        var role2 = $("#user_Roles option:selected").val();
+
+        var obj = {
+            Id: idk,
+            roleId: role2
+        };
+
+        $.ajax({
+            url: "@Url.Action("updateRole", "Cabine")",
+            type: "post",
+            data: obj
+
+        }).done(function (response) {
+
+            if (response.Success) {
+                window.location.reload();
+            }
+            else {
+
+            }
+        }).fail(function(){
+
+        });
+    });
+
+
+</script>
+
+
+
+<script>
+
+    $("[name='btnLike']").click(function () {
+        var idk = $(this).attr("id");
+        var element = document.querySelector("div[class=\"article - main\"]>div:last-of-type>ul>li:first-of-type>button[id=\"" + idk + "\"]");
+        var element2 = document.querySelector("ul:nth-child(2) > li:nth-child(1) > #\\3" + idk);
+
+
+        $.ajax({
+            url: "@Url.Action("AddLike", "Home")" + "/" + idk,
+            type: "post",
+        }).done(function (response) {
+
+            if (response.Success) {
+                window.location.reload();
+            }
+            else {
+
+            }
+        }).fail(function(){
+
+        });
+    });
+
+
+</script>
