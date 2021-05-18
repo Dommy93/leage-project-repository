@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using WillThisWork.Models;
 using WillThisWork.ViewModels;
@@ -10,7 +13,7 @@ namespace WillThisWork.Data
 {
     public class CabineRepository : Repository
     {
-
+        HttpClient client = new HttpClient();
         public CabineRepository(ApplicationDbContext context) : base(context)
         {
            
@@ -52,6 +55,8 @@ namespace WillThisWork.Data
             user.Roles.Add(role);
             _context.SaveChanges();
         }
+
+
 
     }
 }

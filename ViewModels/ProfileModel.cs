@@ -16,5 +16,7 @@ namespace WillThisWork.ViewModels
         
         public List<Champion> Champions { get; set; }
 
+        public List<SummonerChampion> SummonerChampions { get; set; }
+
     }
 }

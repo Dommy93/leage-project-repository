@@ -4,13 +4,16 @@ using System.Linq;
 using System.Web;
 using WillThisWork.Models;
 using System.Data.Entity;
+using System.Threading.Tasks;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace WillThisWork.Data
 {
     public class HateRepository : Repository
     {
 
-
+        HttpClient client = new HttpClient();
         public HateRepository(ApplicationDbContext context) : base(context)
         {
 
@@ -188,6 +191,39 @@ namespace WillThisWork.Data
             }
 
             return dict;
+        }
+
+
+        public async Task<List<SummonerChampion>> GetSummonerChampions(string summonerName)
+        {
+            try
+            {
+                client.DefaultRequestHeaders.Add("X-Riot-Token", "RGAPI-1f8dab8f-24bb-4723-825c-0d3c830df6e2");
+                var summonerName2 = "Gillberg";
+                HttpResponseMessage response = await client.GetAsync($"https://eun1.api.riotgames.com/lol/summoner/v4/summoners/by-name/{summonerName2}");
+
+                response.EnsureSuccessStatusCode();
+                string responseBody = await response.Content.ReadAsStringAsync();
+
+
+                RiotSummoner summoner = JsonConvert.DeserializeObject<RiotSummoner>(responseBody);
+                string summonerId = summoner.id;
+
+
+                HttpResponseMessage response3 = await client.GetAsync($"https://eun1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/{summonerId}");
+                string response3Body = await response3.Content.ReadAsStringAsync();
+
+
+                List<SummonerChampion> summonerChampions = JsonConvert.DeserializeObject<List<SummonerChampion>>(response3Body);
+
+                return summonerChampions;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
         }
 
     }

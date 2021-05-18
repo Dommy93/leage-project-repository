@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using WillThisWork.Data;
@@ -290,6 +291,7 @@ namespace WillThisWork.Controllers
             var hates = _hateRepository.GetListWR().Hates.Where(h => h.UserId == id).ToList();
             model.Hates = hates;
             model.Champions = context.Champions.ToList();
+            model.SummonerChampions = Task.Run(() => _hateRepository.GetSummonerChampions("Gillberg")).Result;
             
 
             return View(model);
