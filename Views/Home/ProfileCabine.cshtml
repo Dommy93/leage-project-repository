@@ -3,32 +3,33 @@
     ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
+ 
 
 
 
 @foreach (var hate in Model.ChampHateDict)
 {
+    <h2>@hate.Key.Name  @hate.Key.ChampId</h2>
+    <p>Champion level : @Model.SummonerChampions.Where(ch => ch.championId == hate.Key.ChampId).SingleOrDefault().championLevel</p>
+    <p>Champion points : @Model.SummonerChampions.Where(ch => ch.championId == hate.Key.ChampId).SingleOrDefault().championPoints</p>
+    <p>Did you grant chess ? @Model.SummonerChampions.Where(ch => ch.championId == hate.Key.ChampId).SingleOrDefault().chestGranted</p>
 
-    <h2>@hate.Key.Name</h2>
-    <p>@Model.SummonerChampions[1].championPoints</p>
     <hr />
     foreach (var hates in hate.Value)
     {
         var imgPath = hates.ImagePath + "#t=0.1";
 
-<div class="thumby">
-    <h4>@hates.Title</h4>
-    <video name="thumbnail" id="@hates.Id" padding="5px" height="150" preload="metadata" onclick="location.href ='@Url.Action("Detail", "Home", new { id = hates.Id })';" style="cursor: pointer;">
-        <source src="@Url.Content(hates.ImagePath == null ? "~/Images/LeagueHate.png" : imgPath)">
-        <source src="movie.ogg" type="video/ogg">
-        Your browser does not support the video tag.
+        <div class="thumby">
+            <h4>@hates.Title</h4>
+            <video name="thumbnail" id="@hates.Id" padding="5px" height="150" preload="metadata" onclick="location.href ='@Url.Action("Detail", "Home", new { id = hates.Id })';" style="cursor: pointer;">
+                <source src="@Url.Content(hates.ImagePath == null ? "~/Images/LeagueHate.png" : imgPath)">
+                <source src="movie.ogg" type="video/ogg">
+                Your browser does not support the video tag.
 
-    </video>
+            </video>
 
-    <h5>Likes : @hates.Likes Dislikes : @hates.Dislikes Comments : @hates.Comments.Count</h5>
-</div>
+            <h5>Likes : @hates.Likes Dislikes : @hates.Dislikes Comments : @hates.Comments.Count</h5>
+        </div>
     }
 
 
@@ -36,20 +37,18 @@
 
 
 <style>
-    .thumby{
-        display : inline-block
+    .thumby {
+        display: inline-block
     }
 </style>
 
 <style>
-  
 
-        /* Add a hover effect (blue shadow) */
-        video:hover {
-            box-shadow: 0px 0px 5px 1px #004c98;
-        }
 
-     }
-    
+    /* Add a hover effect (blue shadow) */
+    video:hover {
+        box-shadow: 0px 0px 5px 1px #004c98;
+    }
+    }
 </style>
 

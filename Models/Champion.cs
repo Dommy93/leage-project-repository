@@ -7,7 +7,8 @@ namespace WillThisWork.Models
 {
     public class Champion
     {
-        public int ChampionId { get; set; }
+        public int Id { get; set; }
+        public int ChampId { get; set; }
         public string Name { get; set; }
 
     }

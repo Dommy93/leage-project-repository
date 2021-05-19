@@ -168,7 +168,7 @@ namespace WillThisWork.Data
             Dictionary<Champion, List<Hate>> dict = new Dictionary<Champion, List<Hate>>();
 
             List<Champion> champs = _context.Hates.Where(h => h.UserId == userId).Select(s => s.Champion).Distinct().ToList();
-
+            //List<Champion> champs2 = _context.Hates.GroupBy(ch => ch.ChampionId).Select(grp => grp.First()).ToList();
             var hates = _context.Hates.
                 Where(h => h.UserId == userId).
                 Include(c => c.Comments).ToList();
@@ -198,7 +198,7 @@ namespace WillThisWork.Data
         {
             try
             {
-                client.DefaultRequestHeaders.Add("X-Riot-Token", "RGAPI-1f8dab8f-24bb-4723-825c-0d3c830df6e2");
+                client.DefaultRequestHeaders.Add("X-Riot-Token", "RGAPI-0cee5869-142d-4b71-a15a-5a60489a57e3");
                 var summonerName2 = "Gillberg";
                 HttpResponseMessage response = await client.GetAsync($"https://eun1.api.riotgames.com/lol/summoner/v4/summoners/by-name/{summonerName2}");
 
@@ -225,6 +225,37 @@ namespace WillThisWork.Data
             }
             return null;
         }
+        public async Task<SummonerChampion> GetSummonerChampion(int id)
+        {
+            try
+            {
+                client.DefaultRequestHeaders.Add("X-Riot-Token", "RGAPI-0cee5869-142d-4b71-a15a-5a60489a57e3");
+                var summonerName2 = "Gillberg";
+                HttpResponseMessage response = await client.GetAsync($"https://eun1.api.riotgames.com/lol/summoner/v4/summoners/by-name/{summonerName2}");
+
+                response.EnsureSuccessStatusCode();
+                string responseBody = await response.Content.ReadAsStringAsync();
+
+
+                RiotSummoner summoner = JsonConvert.DeserializeObject<RiotSummoner>(responseBody);
+                string summonerId = summoner.id;
+
+
+                HttpResponseMessage response3 = await client.GetAsync($"https://eun1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/{summonerId}/by-champion/{id}");
+                string response3Body = await response3.Content.ReadAsStringAsync();
+
+                SummonerChampion champion = JsonConvert.DeserializeObject<SummonerChampion>(response3Body);
+
+                return champion;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
 
     }
 }

@@ -31,6 +31,7 @@ namespace WillThisWork.Models
 
         public List<Comment> Comments { get; set; }
 
+
         public int ChampionId { get; set; }
         public Champion Champion { get; set; }
 

@@ -12,14 +12,14 @@ namespace WillThisWork.Models
     
         public Hate Hate { get; set; } = new Hate();
 
-        public int ChampionId { get; set; }
+       // public int ChampionId { get; set; }
         public HttpPostedFileBase Image { get; set; }
 
         public SelectList ChampionSelectListItems { get; set; }
 
         public virtual void Init(Repository repository)
         {
-            ChampionSelectListItems = new SelectList(repository.getChampList().Items, "ChampionId", "Name");
+            ChampionSelectListItems = new SelectList(repository.getChampList().Items, "ChampId", "Name");
         }
 
     }
