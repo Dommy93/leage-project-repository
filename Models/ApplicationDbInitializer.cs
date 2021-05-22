@@ -37,7 +37,7 @@ namespace WillThisWork.Models
             {
                 Champion champion = new Champion();
                 champion.Name = champ.Value.name;
-                champion.ChampId = Int32.Parse(champ.Value.key); // fix for championId not auto increment
+                champion.ChampionId = Int32.Parse(champ.Value.key); // fix for championId not auto increment
                 context.Champions.Add(champion);
             }
 

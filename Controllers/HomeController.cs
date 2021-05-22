@@ -129,7 +129,7 @@ namespace WillThisWork.Controllers
                
                 _hateRepository.Add(hate);
 
-                model.Init(repository);
+                //model.Init(repository);
 
                 return RedirectToAction("Detail", new { id = hate.Id });
             }
@@ -281,6 +281,7 @@ namespace WillThisWork.Controllers
             return View(context.Champions.ToList());
         }
 
+        [HttpGet]
         public ActionResult ProfileCabine(string id)
         {
             var model = new ProfileModel();

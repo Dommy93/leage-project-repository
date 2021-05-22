@@ -198,7 +198,7 @@ namespace WillThisWork.Data
         {
             try
             {
-                client.DefaultRequestHeaders.Add("X-Riot-Token", "RGAPI-0cee5869-142d-4b71-a15a-5a60489a57e3");
+                client.DefaultRequestHeaders.Add("X-Riot-Token", "RGAPI-f7fd2c73-5098-43a2-b767-1a048b41e99b");
                 var summonerName2 = "Gillberg";
                 HttpResponseMessage response = await client.GetAsync($"https://eun1.api.riotgames.com/lol/summoner/v4/summoners/by-name/{summonerName2}");
 
@@ -229,7 +229,7 @@ namespace WillThisWork.Data
         {
             try
             {
-                client.DefaultRequestHeaders.Add("X-Riot-Token", "RGAPI-0cee5869-142d-4b71-a15a-5a60489a57e3");
+                client.DefaultRequestHeaders.Add("X-Riot-Token", "RGAPI-f7fd2c73-5098-43a2-b767-1a048b41e99b");
                 var summonerName2 = "Gillberg";
                 HttpResponseMessage response = await client.GetAsync($"https://eun1.api.riotgames.com/lol/summoner/v4/summoners/by-name/{summonerName2}");
 
