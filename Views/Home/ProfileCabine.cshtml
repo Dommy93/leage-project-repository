@@ -9,6 +9,8 @@
 
 @foreach (var hate in Model.ChampHateDict)
 {
+
+    
     <h2>@hate.Key.Name  @hate.Key.ChampionId</h2>
     <p>Champion level : @Model.SummonerChampions.Where(ch => ch.championId == hate.Key.ChampionId).SingleOrDefault().championLevel</p>
     <p>Champion points : @Model.SummonerChampions.Where(ch => ch.championId == hate.Key.ChampionId).SingleOrDefault().championPoints</p>
@@ -39,6 +41,13 @@
 <style>
     .thumby {
         display: inline-block
+    }
+
+    #summonerDetail{
+
+    }
+    #different{
+
     }
 </style>
 

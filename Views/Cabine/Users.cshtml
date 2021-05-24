@@ -29,7 +29,7 @@
                 <td>@user.UserName</td>
                 <td>@user.Email</td>
                 <td>
-                    @Html.DropDownListFor(m => user.Roles, Model.GetSelectListItemsWithSelectedValue(user.Roles.FirstOrDefault().RoleId), new { @class = "form-control" })
+                    @Html.DropDownListFor(m => user.Roles, Model.GetSelectListItemsWithSelectedValue(user.Roles.FirstOrDefault().RoleId), new { @class = "form-control", @id = $"{user.Id}_dropdown" })
                 </td>
                 <td>
                     @* @Html.ActionLink("Save", "updateRole", "Cabine", new { id = user.Id }, new { @class = "btn btn-outline-primary" })*@
@@ -66,15 +66,17 @@
 @*<script>
 
 
-    $('#user_Roles').click(function () {
+    $('#user_Roles').click(function (sender) {
+        debugger;
 
-
-        var selectedValue = $('#user_Roles').selectedValue;
+        var dropdown = "#" + sender.attr('id') + "dropdown";
+        var selectedValue = $(dropdown).selectedValue;
+        var idik = $('button').attr("id");
 
         var model = {
             roleId: selectedValue,
-
-        }
+            userId: @Guid.Empty
+        };
 
         $.ajax({
             type: 'POST',
@@ -89,14 +91,17 @@
 
 <script>
 
-    $("[name='btnSubmit']").click(function () {
+    $("[name='btnSubmit']").click(function (sender) {
 
         var idk = $(this).attr("id");
         var role2 = $("#user_Roles option:selected").val();
 
+        var dropdown = "#" + idk + "_dropdown";
+        var selectedValue = $(dropdown + " option:selected").val();
+
         var obj = {
             Id: idk,
-            roleId: role2
+            roleId: selectedValue
         };
 
         $.ajax({
